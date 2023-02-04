@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Markdown Editor</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  <style>
+    .editor-preview {
+      width: 50%;
+      float: left;
+    }
+    .markdown-editor {
+      width: 50%;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="markdown-editor">
+    <textarea id="editor"></textarea>
+  </div>
+  <div class="editor-preview">
+    <div id="preview"></div>
+  </div>
+  <script>
+    var simplemde = new SimpleMDE({ 
+      element: document.getElementById("editor"),
+      previewRender: function (plainText) {
+        return marked(plainText);
+      }
+    });
+    simplemde.codemirror.on("change", function () {
+      document.getElementById("preview").innerHTML = simplemde.options.previewRender(simplemde.value());
+    });
+  </script>
+</body>
+</html>
